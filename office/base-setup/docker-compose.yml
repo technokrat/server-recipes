@@ -4,24 +4,29 @@ services:
   traefik:
     container_name: traefik
     image: "traefik:v2.3"
+    restart: always
     command:
       - --api.insecure=true
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --providers.docker.exposedbydefault=false
       - --providers.docker=true
-      - --log.level=ERROR
+      - --log.level=INFO
       - --certificatesresolvers.leresolver.acme.httpchallenge=true
       - --certificatesresolvers.leresolver.acme.email=it@technokrat.ch
       - --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+#       - --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.leresolver.acme.httpchallenge.entrypoint=web
+      - --providers.file.directory=/etc/traefik/services
+      - --providers.file.watch=true
     ports:
-      - "81:80"
-      - "444:443"
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "letsencrypt:/letsencrypt"
+      - "/srv/server-recipes/office/base-setup/config:/etc/traefik/services"
     
     labels:
       - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
