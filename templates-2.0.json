@@ -1,0 +1,19 @@
+{
+    "version": "2",
+    "templates": [
+        {
+            "type": 3,
+            "title": "Base Setup",
+            "description": "The base setup of portainer and Traefik for any server.",
+            "categories": [
+                "tkrt"
+            ],
+            "platform": "linux",
+            "repository": {
+                "url": "https://github.com/technokrat/server-recipes",
+                "stackfile": "office/base-setup/docker-compose.yml"
+            },
+            "env": []
+        }
+    ]
+}
