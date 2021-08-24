@@ -3,7 +3,7 @@ version: '3.3'
 services:
 
   traefik:
-    image: traefik:v2.4
+    image: traefik
     ports:
       # Listen on port 80, default for HTTP, necessary to redirect to HTTPS
       - 80:80
@@ -87,7 +87,7 @@ services:
       - traefik-public
 
   agent:
-    image: portainer/agent:2.6
+    image: portainer/agent
     environment:
       # REQUIRED: Should be equal to the service name prefixed by "tasks." when
       # deployed inside an overlay network
@@ -105,7 +105,7 @@ services:
         constraints: [node.platform.os == linux]
 
   portainer:
-    image: portainer/portainer-ce:2.6
+    image: portainer/portainer-ce
     command: -H tcp://tasks.agent:9001 --tlsskipverify
     volumes:
       - portainer_data:/data
