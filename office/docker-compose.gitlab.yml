@@ -32,3 +32,11 @@ services:
     deploy:
       mode: replicated
       replicas: 4
+
+configs:
+  gitlab_config:
+    external: true
+secrets:
+  gitlab_root_password:
+    external: true
+
