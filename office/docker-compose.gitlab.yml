@@ -1,7 +1,7 @@
 version: "3.6"
 services:
   gitlab:
-    image: gitlab/gitlab-ce:latest
+    image: gitlab/gitlab-ce:13.12.8-ce.0
     hostname: code.technokrat.ch
     ports:
       - "2222:22"
@@ -26,6 +26,8 @@ services:
       - traefik.http.routers.gitlab.tls=true
       - traefik.http.routers.gitlab.tls.certresolver=le
       - traefik.http.services.gitlab.loadbalancer.server.port=80
+    networks:
+      - traefik-public
   
   gitlab-runner:
     image: gitlab/gitlab-runner:alpine
@@ -38,5 +40,10 @@ configs:
     external: true
 secrets:
   gitlab_root_password:
+    external: true
+networks:
+  # Use the previously created public network "traefik-public", shared with other
+  # services that need to be publicly available via this Traefik
+  traefik-public:
     external: true
 
