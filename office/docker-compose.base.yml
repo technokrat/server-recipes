@@ -27,20 +27,10 @@ services:
         # admin-auth middleware with HTTP Basic auth
         # Using the environment variables USERNAME and HASHED_PASSWORD
         - traefik.http.middlewares.admin-auth.basicauth.users=technokrat:$apr1$mSaDTyLA$WIsfYlkWakb91IQPbqpmb.
-        # https-redirect middleware to redirect HTTP to HTTPS
-        # It can be re-used by other stacks in other Docker Compose files
-        #- traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
-        #- traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
-        # traefik-http set up only to use the middleware to redirect to https
-        # Uses the environment variable DOMAIN
-        #- traefik.http.routers.traefik-public-http.rule=Host(`traefik.office.technokrat.ch`)
-        #- traefik.http.routers.traefik-public-http.entrypoints=http
-        #- traefik.http.routers.traefik-public-http.middlewares=https-redirect
         # traefik-https the actual router using HTTPS
-        # Uses the environment variable DOMAIN
-        #- traefik.http.routers.traefik-public-https.rule=Host(`traefik.office.technokrat.ch`)
-        #- traefik.http.routers.traefik-public-https.entrypoints=https
-        #- traefik.http.routers.traefik-public-https.tls=true
+        - traefik.http.routers.traefik-public-https.rule=Host(`traefik.office.technokrat.ch`)
+        - traefik.http.routers.traefik-public-https.entrypoints=websecure
+        - traefik.http.routers.traefik-public-https.tls=true
         # Use the special Traefik service api@internal with the web UI/Dashboard
         - traefik.http.routers.traefik-public-https.service=api@internal
         # Use the "le" (Let's Encrypt) resolver created below
