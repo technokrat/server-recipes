@@ -35,8 +35,8 @@ services:
         - traefik.http.routers.wikijs.tls.certresolver=le
         - traefik.http.services.wikijs.loadbalancer.server.port=3000
     restart: unless-stopped
-  networks:
-    - traefik-public
+    networks:
+      - traefik-public
 
 volumes:
   wijiks_data:
