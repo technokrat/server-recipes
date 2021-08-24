@@ -1,0 +1,26 @@
+version: "3"
+services:
+  homer:
+    image: b4bz/homer
+    #environment:
+    #  - UID=1000
+    #  - GID=1000
+    restart: unless-stopped
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.constraint-label=traefik-public
+        - traefik.http.routers.homer.rule=Host(`office.technokrat.ch`)
+        - traefik.http.routers.homer.entrypoints=websecure
+        - traefik.http.routers.homer.tls=true
+        - traefik.http.routers.homer.tls.certresolver=le
+        - traefik.http.services.homer.loadbalancer.server.port=8080
+    networks:
+      - traefik-public
+      
+networks:
+  # Use the previously created public network "traefik-public", shared with other
+  # services that need to be publicly available via this Traefik
+  traefik-public:
+    external: true
