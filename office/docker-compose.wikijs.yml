@@ -29,11 +29,11 @@ services:
         - traefik.enable=true
         - traefik.docker.network=traefik-public
         - traefik.constraint-label=traefik-public
-        - traefik.http.routers.homer.rule=Host(`intranet.technokrat.ch`)
-        - traefik.http.routers.homer.entrypoints=websecure
-        - traefik.http.routers.homer.tls=true
-        - traefik.http.routers.homer.tls.certresolver=le
-        - traefik.http.services.homer.loadbalancer.server.port=3000
+        - traefik.http.routers.wikijs.rule=Host(`intranet.technokrat.ch`)
+        - traefik.http.routers.wikijs.entrypoints=websecure
+        - traefik.http.routers.wikijs.tls=true
+        - traefik.http.routers.wikijs.tls.certresolver=le
+        - traefik.http.services.wikijs.loadbalancer.server.port=3000
     restart: unless-stopped
 
 volumes:
